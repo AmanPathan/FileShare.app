@@ -20,7 +20,7 @@ const App = () => {
   const fileInputRef = useRef();
 
   const [fileLink, setFileLink] = useState('');
-  const [file_uuid, setUUID] = useState('');
+  const [id, setUUID] = useState('');
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [progress, setProgress] = useState(0);
@@ -44,7 +44,6 @@ const App = () => {
     }
   };
 
-  const [file_link, setLink] = useState('https://www.behance.net/gallery/142272531/File-Upload-Animation-Progress-bar-Clickable-Prototypes?tracking_source=search_projects&l=14');
   const [classFlag, setClassFlag] = useState(false);
 
   const handleDragIn = (event) => {
@@ -80,16 +79,16 @@ const App = () => {
     if (uploadStatus === 'done') {
       setUploadStatus('done');
       clearFileInput();
-      navigate('/files/:uuid');
+      navigate(`/files/${id}`);
       return;
     }
-
+    const BASE_URL = 'https://fileshare-app-8e4k.onrender.com';
     try {
       setUploadStatus('uploading');
       const formData = new FormData();
       formData.append("file", selectedFile);
-      // console.log(formData);
-      const response = await axios.post('http://localhost:8000/api/files', formData, {
+      // console.log(formData); 8000
+      const response = await axios.post(`http://localhost:8000/api/files`, formData, {
         onUploadProgress: (progressEvent) => {
           const percentageCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
@@ -102,27 +101,32 @@ const App = () => {
         }
       }
       );
-      setFileLink(response.data.file);
-      console.log(fileLink);
+      setUUID(response.data._id);
+      toast(
+        "Wait for a While",
+        {
+          duration: 1000,
+        }
+      );
+      console.log(id);
     }
     catch (error) {
       setUploadStatus('none');
     }
   }
 
-  const getUUID = async () => {
-    const res = await axios.get(fileLink)
-      .then(res => {
-        setUUID(res.data.uuid);
-      }).catch((err) => {
-        console.log(err);
-      })
-  }
-  getUUID();
-
-  if (file_uuid) {
+  // const getUUID = async () => {
+  //   const res = await axios.get(fileLink)
+  //     .then(res => {
+  //       setUUID(res.data.uuid);
+  //     }).catch((err) => {
+  //       console.log(err);
+  //     })
+  // }
+  // getUUID();
+  if (id) {
     setTimeout(() => {
-      navigate(`/files/${file_uuid}`);
+      navigate(`/files/${id}`);
     }, 1000);
   }
 

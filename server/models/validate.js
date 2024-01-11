@@ -12,20 +12,22 @@ const fileSchema = new Schema ({
     },
     size:{
         type:Number,
-        require:true,
+        required:true,
     },
     uuid:{
         type:String,
-        require:true,
+    },
+    format:{
+        type:String,
+        required:true,
     },
     sender:{
         type:String,
-        require:false,
     },
     receiver:{
         type:String,
-        require:false,
     },
+
 
 },{timestamps:true});
 

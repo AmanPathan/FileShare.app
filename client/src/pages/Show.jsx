@@ -11,28 +11,35 @@ import doc_icon from '../images/doc.png';
 import whatsapp_icon from '../images/whatsapp.png';
 import mail_icon from '../images/mail.png';
 import { useNavigate } from 'react-router-dom';
+
 import emailjs from '@emailjs/browser';
 emailjs.init("_tkNbPWngWwPRS8yh");
 
 const Show = () => {
     const navigate = useNavigate();
+    const BASE_URL = 'https://fileshare-app-8e4k.onrender.com';
 
-    const { uuid } = useParams();
+    const { id } = useParams();
     const [fileData, setFileData] = useState([]);
     const [fileName, setFileName] = useState('');
     const [fileLink, setFileLink] = useState('');
-    const [fileUUID, setFileUUID] = useState('');
+    const [fileUUID, setFileID] = useState('');
     const [fileSize, setFileSize] = useState('');
+    const [fileFormat, setFileFormat] = useState('');
 
     const fetchUsers = async () => {
-        axios.get(`http://localhost:8000/files/${uuid}`)
+        axios.get(`http://localhost:8000/files/${id}`) //8000
             .then((res) => {
                 setFileData(res.data);
                 setFileName(res.data.fileName);
                 setFileSize(res.data.fileSize);
-                setFileLink(res.data.download);
-                setFileUUID(res.data.uuid);
+                setFileLink(res.data.downloadLink);
+                setFileFormat(res.data.format);
+                setFileID(res.data.id);
+            }).catch((err) => {
+                console.log("error fetching data", err);
             })
+        console.log(fileData);
     }
 
 
@@ -50,21 +57,23 @@ const Show = () => {
     var templateParams = {
         email_to: email_to,
         email_subject: email_subject,
-        email_link: `http://localhost:8000/files/download/${fileUUID}`,
+        email_link: `http://localhost:3000/files/download/${fileUUID}`, //8000
     };
     const sendMail = () => {
 
         emailjs.send('service_vb0s9br', 'template_15ld6rk', templateParams)
             .then((result) => {
                 console.log('Email Sent');
-                toast.success('Email Sent Successfully!')
+                setEmailTo("");
+                setEmailSubject("");
+                toast.success('Email Sent Successfully!');
             }, (error) => {
                 toast.error('Error Sending Email!')
                 console.log('Error sending mail!', error);
             });
     }
 
-    const wts_link = `whatsapp://send?text=Download Your File Shared Using FileShare App : http://localhost:3000/files/download/${fileUUID}`
+    const wts_link = `whatsapp://send?text=Download Your File Shared Using FileShare App : http://localhost:3000/files/download/${fileUUID}` //3000
     const handleSubmit = () => {
         sendMail();
     }
@@ -94,6 +103,8 @@ const Show = () => {
                             <div className='link_div'>
                                 <img src={download_icon1} className='copy_icon2' />
                                 <p className='link'>{`http://localhost:3000/files/download/${fileUUID}`}</p>
+                                {/* 3000  link*/}
+                                {/* 3000  copy*/}
                             </div>
                             <div className='share_btns'>
                                 <img src={copy_icon} onClick={() => { navigator.clipboard.writeText(`http://localhost:3000/files/download/${fileUUID}`); toast.success('Copied to Clipboard') }} className='copy_icon1' alt='copy link' />

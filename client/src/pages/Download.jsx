@@ -13,29 +13,35 @@ import goback_icon from '../images/goback.png';
 
 import { useNavigate } from 'react-router-dom';
 
+import fileDownload from 'js-file-download';
+
 const Download = () => {
     const navigate = useNavigate();
 
-    const { uuid } = useParams();
     const [errorFlag, setErrorFlag] = useState(false);
+    const { id } = useParams();
     const [fileData, setFileData] = useState([]);
     const [fileName, setFileName] = useState('');
     const [fileLink, setFileLink] = useState('');
+    const [fileUUID, setFileID] = useState('');
     const [fileSize, setFileSize] = useState('');
+    const [fileFormat, setFileFormat] = useState('');
 
     const fetchUsers = async () => {
-        axios.get(`http://localhost:8000/files/${uuid}`)
+        axios.get(`http://localhost:8000/files/${id}`) //8000
             .then((res) => {
                 setFileData(res.data);
                 setFileName(res.data.fileName);
                 setFileSize(res.data.fileSize);
-                setFileLink(res.data.download);
+                setFileLink(res.data.downloadLink);
+                setFileFormat(res.data.format);
+                setFileID(res.data.id);
             }).catch((err) => {
-                console.log("Error in Fetching Data");
+                console.log("error fetching data", err);
                 setErrorFlag(true);
-            });
+            })
+        console.log(fileData);
     }
-
     const handleGoback = ()=>{
         navigate('/');
     }
@@ -43,6 +49,12 @@ const Download = () => {
     useEffect(() => {
         fetchUsers();
     }, []);
+    const handleDownload = async()=>{
+        const {data} = await axios.get(fileLink,{
+            responseType:'blob',
+        });
+        fileDownload(data,fileName);
+    }
 
     return (
         <>
@@ -65,10 +77,10 @@ const Download = () => {
                             </div>
                         </div>
                         <div className='link_div'>
-                            <a href={fileLink} className='download_btn'>
+                            <button className='download_btn' onClick={handleDownload}>
                                 <img src={download_icon} className='file_logo_1' />
                                 Download
-                            </a>
+                            </button>
                         </div>
 
                     </div>

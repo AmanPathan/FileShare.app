@@ -2,18 +2,19 @@ const router = require('express').Router();
 const File = require('../models/validate.js');
 const APP_BASE_URL = process.env.APP_BASE_URL;
 
-router.get('/:uuid',async (req,res)=>{
+router.get('/:id',async (req,res)=>{
     try{
-        const uuid= req.params.uuid;
-        const file = await File.findOne({uuid});
+        const id= req.params.id;
+        const file = await File.findOne({_id:id});
         if(!file){
             return res.status(404).json({error:"File Doesn't Exist! or Link Has Been Expired"});
         }
         return res.json({
-            uuid:file.uuid,
+            id:file._id,
             fileName:file.filename,
             fileSize:file.size,
-            download:`http://localhost:8000/files/download/${file.uuid}`
+            fileFormat:file.format,
+            downloadLink:file.path
         })
     }catch(err){
         return res.status(404).json({error:"Something Went Wrong!!"});
