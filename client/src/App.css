@@ -65,7 +65,8 @@
   text-decoration: none !important;
   font-weight: 500;
   transition: all 0.6s linear;
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
 }
 .download_btn:hover {
   transform: scale(1.03);
@@ -106,7 +107,7 @@ h3 {
   color: #fff;
   cursor: pointer;
   border-radius: 10px;
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 .heading {
   display: flex;
@@ -406,6 +407,124 @@ h3 {
 .loader_div {
   width: 90%;
 }
+.nav{
+  width: 100%;
+  height: 80px;
+  background-color: #1976d2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.left_logo{
+  width:200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15%;
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+}
+.logo{
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.link_github{
+  text-decoration: none !important;
+  margin-right: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.github{
+  width: 35px;
+  height: 35px;
+  filter: invert();
+  transition: all 0.4s linear;
+}
+.github:hover{
+  transform: scale(1.05);
+}
+
+.link_github:hover{
+  text-decoration: none !important;
+}
+.container_home{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
+  background-color: #fefcfb;
+}
+.container_home_center{
+  width: 80%;
+  height: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+}
+.home_right{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 90%;
+}
+h2{
+  font-size: 35px;
+  color: #1976d2; 
+}
+.description,.description1{
+  color: #242423;
+  font-size: 25px;
+  font-weight: 600;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+.description1{
+  color: #1d2d44;
+  font-size: 20px;
+  width: 80%;
+}
+.left_img{
+  width: 35%;
+  height: 65%;
+}
+.home_btn{
+  border: none;
+  width: 210px;
+  height: 60px;
+  border-radius: 10px;
+  background-color: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.5s linear;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+.home_btn:hover{
+  transform:scale(1.05) !important;
+}
+.start_icon{
+  filter: invert();
+  width: 23px;
+  height: 23px;
+  margin-right: 10px;
+}
+
 @media screen and (max-width: 1230px) {
   .file_logo_1 {
     width: 20px;
@@ -448,6 +567,19 @@ h3 {
   .download_container {
     width: 600px;
   }
+  .container_home{
+    height: 85vh;
+  }
+  .description{
+    width: 90%;
+  }
+  .description1{
+    font-size: 18px;
+  }
+  .home_right{
+    height: 100%;
+    text-align: center;
+  }
 }
 @media screen and (max-width: 950px) {
   .file_logo_2 {
@@ -481,6 +613,13 @@ h3 {
   .filename_text{
     width: 65%;
     font-size: 18px;
+  }
+  .container_home{
+    height: 90vh;
+  }
+  .container_home_center{
+    width: 90%;
+    height: 100%;
   }
 }
 @media screen and (max-width: 630px) {
@@ -536,6 +675,17 @@ h3 {
   }
   .filename_text,.filesize_text{
     font-size: 16px;
+  }
+  .container_home{
+    height: 130vh;
+  }
+  .container_home_center{
+    flex-direction: column;
+  }
+  .left_img{
+    height: 40%;
+    width: 60%;
+    margin-top: 30px;
   }
 }
 @media screen and (max-width: 600px) {
@@ -601,6 +751,17 @@ h3 {
   .wts_icon {
     padding-right: 10px;
   }
+  .left_logo{
+    font-size: 25px;
+    margin-left: 3%;
+  }
+  .logo{
+    width: 40px;
+    height: 40px;
+  }
+  .link_github{
+    margin-right: 5%;
+  }
 }
 
 @media screen and (max-width: 375px) {
@@ -619,5 +780,9 @@ h3 {
   .download_container {
     width: 290px;
     height: 80%;
+  }
+  .description1{
+    font-size: 16px;
+    text-align: justify !important;
   }
 }
