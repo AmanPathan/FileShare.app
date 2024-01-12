@@ -17,16 +17,16 @@ const fileSchema = new Schema ({
     uuid:{
         type:String,
     },
-    format:{
-        type:String,
-        required:true,
-    },
-    sender:{
-        type:String,
-    },
-    receiver:{
-        type:String,
-    },
+    // format:{
+    //     type:String,
+    //     required:true,
+    // },
+    // sender:{
+    //     type:String,
+    // },
+    // receiver:{
+    //     type:String,
+    // },
 
 
 },{timestamps:true});

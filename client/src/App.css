@@ -41,17 +41,17 @@
   align-content: center;
   text-align: center;
 }
-.show-container1{
+.show-container1 {
   width: 90%;
   height: 80%;
   justify-content: space-evenly;
 }
 .download_container {
   height: 80%;
-  width: 40%;
+  width: 600px;
 }
 .download_btn {
-  width: 200px;
+  width: 40%;
   height: 50px;
   border: none;
   font-size: 20px;
@@ -117,7 +117,7 @@ h3 {
   height: 50%;
 }
 .heading_download {
-  height: 70%;
+  height: 50%;
   justify-content: center;
 }
 .heading_download h2 {
@@ -125,8 +125,8 @@ h3 {
   margin: 0;
 }
 .download-icon {
-  width: 100%;
-  height: 90%;
+  width: 90%;
+  height: 100%;
 }
 .upload-icon {
   width: 60px;
@@ -149,7 +149,6 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 20px;
   border-radius: 10px;
   font-size: 20px;
   color: #fff;
@@ -250,7 +249,7 @@ h3 {
   height: 25px;
 }
 .file_status_div {
-  width: 70%;
+  width: 65%;
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
@@ -274,18 +273,18 @@ h3 {
   font-size: 20px;
   font-weight: 500;
   text-align: center;
-  width: 50%;
+  width: 60%;
 }
 .filesize_text {
   font-size: 18px;
   font-weight: 500;
   color: #1976d2;
-  width: 25%;
-  text-align: left;
+  width: 20%;
+  text-align: center;
 }
 .filename_logo {
-  width: 25%;
-  text-align: right;
+  width: 10%;
+  text-align: center;
 }
 .cross-icon {
   width: 40px;
@@ -302,13 +301,13 @@ h3 {
 .progress_div {
   display: flex;
   flex-direction: row;
-  width: 80%;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
 }
 .loader_div {
   background-color: #bdbdbd;
-  width: 80%;
+  width: 100% !important;
   height: 10px;
   display: flex;
   justify-content: flex-start;
@@ -323,7 +322,7 @@ h3 {
   width: 80% !important;
   flex-direction: row;
 }
-.container_left{
+.container_left {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -331,14 +330,14 @@ h3 {
   width: 50%;
   height: 95%;
 }
-.container_right{
+.container_right {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 40%;
   height: 80vh;
 }
-.container_email{
+.container_email {
   width: 100%;
   height: 95%;
   border-radius: 15px;
@@ -348,12 +347,12 @@ h3 {
   justify-content: space-evenly;
   align-items: center;
 }
-.email_title{
+.email_title {
   font-size: 20px;
   font-weight: 500;
   text-align: center;
 }
-.email_form{
+.email_form {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -361,14 +360,14 @@ h3 {
   width: 70%;
   height: 50%;
 }
-.label{
+.label {
   font-size: 18px;
   padding: 0;
   margin: 0;
   font-weight: 500;
   margin-bottom: -40px;
 }
-.input_container{
+.input_container {
   border: 0;
   border-bottom: 2px solid #1976d2;
   background-color: rgba(255, 255, 255, 0.5);
@@ -378,21 +377,21 @@ h3 {
   height: 40px;
   padding-left: 10px;
 }
-.input_container:focus{
+.input_container:focus {
   outline: none !important;
 }
-.btn_container{
+.btn_container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
 }
-.share_btns{
+.share_btns {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
-.error_div{
+.error_div {
   width: 80%;
   height: 80%;
   display: flex;
@@ -400,7 +399,225 @@ h3 {
   align-items: center;
   flex-direction: column;
 }
-.img_404{
+.img_404 {
   width: 60%;
   height: 80%;
+}
+.loader_div {
+  width: 90%;
+}
+@media screen and (max-width: 1230px) {
+  .file_logo_1 {
+    width: 20px;
+    height: 20px;
+  }
+}
+@media screen and (max-width: 1150px) {
+  .copy_icon1 {
+    padding-right: 10px;
+  }
+  .copy_icon2 {
+    padding-left: 10px;
+  }
+  .filename_text {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .container-center {
+    width: 80%;
+  }
+  .label {
+    margin-bottom: -30px;
+  }
+  .download_btn {
+    font-size: 16px;
+  }
+  .file_logo_1 {
+    width: 16px;
+    height: 16px;
+  }
+  .copy_icon1 {
+    padding-right: 0px;
+    width: 25px;
+    height: 25px;
+  }
+  .share_btns {
+    width: 20%;
+  }
+  .download_container {
+    width: 600px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .file_logo_2 {
+    display: none;
+  }
+  .uploaded_container {
+    width: 90% !important;
+  }
+}
+@media screen and (max-width: 885px) {
+  .container-center {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container-center {
+    width: 90%;
+  }
+  .file_status_div {
+    width: 60%;
+  }
+  .download_container {
+    width: 500px;
+  }
+  .filename_logo {
+    width: 15%;
+  }
+  .down_heading {
+    height: 40vh !important;
+  }
+  .filename_text{
+    width: 65%;
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 630px) {
+  .file_status_div {
+    width: 50%;
+  }
+  .container {
+    height: 180vh;
+  }
+  .container_in_download {
+    height: 100vh;
+  }
+  .download_container {
+    width: 450px;
+    height: 90%;
+  }
+  .down_heading {
+    width: 90%;
+    height: 50vh !important;
+  }
+  .show-container1 {
+    height: 70vh !important;
+  }
+  .uploaded_container {
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 160vh;
+    width: 100%;
+  }
+  .container_left,
+  .container_right {
+    width: 90%;
+  }
+  .container_left {
+    height: 100vh;
+    justify-content: space-evenly;
+  }
+  .container_right {
+    height: 100vh;
+  }
+  .heading_download {
+    height: 40%;
+  }
+  .show-container {
+    height: 70%;
+  }
+  .container_email {
+    height: 90%;
+  }
+  .file_logo{
+    width: 25px;
+    height: 25px;
+  }
+  .filename_text,.filesize_text{
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .file_logo_none {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 480px) {
+  .download_container {
+    width: 400px;
+  }
+}
+@media screen and (max-width: 426px) {
+  .container-center {
+    width: 90%;
+    height: 90%;
+  }
+  .download_container {
+    width: 350px;
+  }
+  .container {
+    align-items: flex-start;
+    padding-top: 30px;
+  }
+  .download_btn{
+    width: 150px;
+  }
+  h3,
+  .or {
+    font-size: 22px;
+    width: 92%;
+  }
+  .heading {
+    height: 70%;
+  }
+  .file_status_div {
+    height: 40%;
+    width: 90%;
+  }
+  .after-upload {
+    height: 130px;
+    flex-direction: column-reverse;
+  }
+  .upload_final_btn {
+    height: 40%;
+  }
+  .loader_div {
+    height: 15px;
+  }
+  .icon_div {
+    justify-content: center;
+  }
+  .file-box {
+    width: 92%;
+  }
+  .filesize_text {
+    text-align: center;
+  }
+  .copy_icon1 {
+    width: 30px;
+    height: 30px;
+  }
+  .wts_icon {
+    padding-right: 10px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .download_container {
+    width: 320px;
+    height: 80%;
+  }
+  .down_heading {
+    height: 40vh !important;
+  }
+  .show-container1 {
+    height: 60vh !important;
+  }
+}
+@media screen and (max-width: 325px) {
+  .download_container {
+    width: 290px;
+    height: 80%;
+  }
 }

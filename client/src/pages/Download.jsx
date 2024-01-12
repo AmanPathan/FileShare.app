@@ -19,7 +19,7 @@ const Download = () => {
     const navigate = useNavigate();
 
     const [errorFlag, setErrorFlag] = useState(false);
-    const { id } = useParams();
+    const { uuid } = useParams();
     const [fileData, setFileData] = useState([]);
     const [fileName, setFileName] = useState('');
     const [fileLink, setFileLink] = useState('');
@@ -28,34 +28,30 @@ const Download = () => {
     const [fileFormat, setFileFormat] = useState('');
 
     const fetchUsers = async () => {
-        axios.get(`http://localhost:8000/files/${id}`) //8000
+        axios.get(`http://localhost:8000/files/${uuid}`) //8000
             .then((res) => {
                 setFileData(res.data);
                 setFileName(res.data.fileName);
                 setFileSize(res.data.fileSize);
                 setFileLink(res.data.downloadLink);
-                setFileFormat(res.data.format);
-                setFileID(res.data.id);
+                setFileID(res.data.uuid);
             }).catch((err) => {
                 console.log("error fetching data", err);
-                setErrorFlag(true);
             })
-        console.log(fileData);
-    }
-    const handleGoback = ()=>{
-        navigate('/');
-    }
-
-    useEffect(() => {
-        fetchUsers();
-    }, []);
-    const handleDownload = async()=>{
-        const {data} = await axios.get(fileLink,{
-            responseType:'blob',
-        });
-        fileDownload(data,fileName);
-    }
-
+        }
+        const handleGoback = () => {
+            navigate('/');
+        }
+        
+        useEffect(() => {
+            fetchUsers();
+        }, []);
+        // const handleDownload = async()=>{
+            //     const {data} = await axios.get(fileLink,{
+                //         responseType:'blob',
+                //     });
+                //     fileDownload(data,fileName);
+                // }
     return (
         <>
             <Toaster
@@ -63,24 +59,24 @@ const Download = () => {
                 reverseOrder={false}
             />
             {!errorFlag ?
-                <div className="container">
+                <div className="container container_in_download">
                     <div className="container-center download_container">
                         <div className="show-container show-container1">
-                            <div className='heading heading_download'>
+                            <div className='heading heading_download down_heading'>
                                 <img className="download-icon" src={download} />
                                 <h2>Download Your File</h2>
                             </div>
                             <div className='file-box file-box1'>
                                 <div className='filename_logo'><img src={doc_icon} className='file_logo' /></div>
                                 <p className='filename_text'>{fileName}</p>
-                                <p className='filesize_text'>{Math.floor(fileSize / 1024) + "." + fileSize % 1024 + " MB"}</p>
+                                <p className='filesize_text'>{Math.floor(fileSize / 1024) + "." + fileSize % 1024 + " KB"}</p>
                             </div>
                         </div>
                         <div className='link_div'>
-                            <button className='download_btn' onClick={handleDownload}>
+                            <a href={fileLink} className='download_btn'>
                                 <img src={download_icon} className='file_logo_1' />
                                 Download
-                            </button>
+                            </a>
                         </div>
 
                     </div>

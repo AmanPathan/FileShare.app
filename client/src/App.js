@@ -20,7 +20,7 @@ const App = () => {
   const fileInputRef = useRef();
 
   const [fileLink, setFileLink] = useState('');
-  const [id, setUUID] = useState('');
+  const [uuid, setUUID] = useState('');
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [progress, setProgress] = useState(0);
@@ -79,10 +79,10 @@ const App = () => {
     if (uploadStatus === 'done') {
       setUploadStatus('done');
       clearFileInput();
-      navigate(`/files/${id}`);
+      navigate(`/files/${uuid}`);
       return;
     }
-    const BASE_URL = 'https://fileshare-app-8e4k.onrender.com';
+    // const BASE_URL = 'https://fileshare-app-8e4k.onrender.com';
     try {
       setUploadStatus('uploading');
       const formData = new FormData();
@@ -101,14 +101,16 @@ const App = () => {
         }
       }
       );
-      setUUID(response.data._id);
+      console.log(response.data);
+      setFileLink(response.data.data);
+      setUUID(response.data.data.uuid);
       toast(
         "Wait for a While",
         {
           duration: 1000,
         }
       );
-      console.log(id);
+      console.log(uuid);
     }
     catch (error) {
       setUploadStatus('none');
@@ -124,9 +126,10 @@ const App = () => {
   //     })
   // }
   // getUUID();
-  if (id) {
+  
+  if(uuid) {
     setTimeout(() => {
-      navigate(`/files/${id}`);
+      navigate(`/files/${uuid}`);
     }, 1000);
   }
 
@@ -136,7 +139,7 @@ const App = () => {
         position="top-center"
         reverseOrder={false}
       />
-      <div className="container">
+      <div className="container container_in_download">
         <div className="container-center">
           <div className={!classFlag ? "upload-container" : "upload-container-drag"} onDragOver={handleDragIn} onDragLeave={handleDragOut} onDrop={handleDrop}>
 
@@ -152,7 +155,7 @@ const App = () => {
           </div>
           {selectedFile && (
             <div className="after-upload">
-              <img src={pdf_icon} className='file_logo' />
+              <img src={pdf_icon} className='file_logo file_logo_none' />
               <div className='file_status_div'>
                 <div className="progress_div">
                   <p className='file_name file_name_crop'>{filename}</p>

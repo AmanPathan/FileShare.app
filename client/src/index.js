@@ -11,8 +11,8 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path='/' element={<App />} />
-      <Route path='/files/:id' element={<Show />} />
-      <Route path='/files/download/:id' element={<Download />} />
+      <Route path='/files/:uuid' element={<Show />} />
+      <Route path='/files/download/:uuid' element={<Download />} />
     </Routes>
   </BrowserRouter>
 );

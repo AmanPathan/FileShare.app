@@ -19,7 +19,7 @@ const Show = () => {
     const navigate = useNavigate();
     const BASE_URL = 'https://fileshare-app-8e4k.onrender.com';
 
-    const { id } = useParams();
+    const { uuid } = useParams();
     const [fileData, setFileData] = useState([]);
     const [fileName, setFileName] = useState('');
     const [fileLink, setFileLink] = useState('');
@@ -28,14 +28,14 @@ const Show = () => {
     const [fileFormat, setFileFormat] = useState('');
 
     const fetchUsers = async () => {
-        axios.get(`http://localhost:8000/files/${id}`) //8000
+        axios.get(`http://localhost:8000/files/${uuid}`) //8000
             .then((res) => {
                 setFileData(res.data);
                 setFileName(res.data.fileName);
                 setFileSize(res.data.fileSize);
                 setFileLink(res.data.downloadLink);
-                setFileFormat(res.data.format);
-                setFileID(res.data.id);
+                // setFileFormat(res.data.format);
+                setFileID(res.data.uuid);
             }).catch((err) => {
                 console.log("error fetching data", err);
             })
@@ -96,7 +96,7 @@ const Show = () => {
                             <div className='file-box'>
                                 <img src={doc_icon} className='file_logo' />
                                 <p className='filename_text'>{fileName}</p>
-                                <p className='filesize_text'>{Math.floor(fileSize / 1024) + "." + fileSize % 1024 + " MB"}</p>
+                                <p className='filesize_text'>{Math.floor(fileSize / 1024) + "." + fileSize % 1024 + " KB"}</p>
                             </div>
                         </div>
                         <div className="link-box">
@@ -132,7 +132,7 @@ const Show = () => {
                                 </div>
                                 {/* <div className='link_div'> */}
                                 <div className='download_btn' onClick={handleNavigate}>
-                                    <img src={upload_icon} className='file_logo_1' />
+                                    <img src={upload_icon} className='file_logo_1 file_logo_2' />
                                     Upload New
                                 </div>
                                 {/* </div> */}
