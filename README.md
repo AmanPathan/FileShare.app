@@ -1,8 +1,7 @@
 
 # FileShare.app - (File Sharing Website)
 
-![fileimage](https://github.com/AmanPathan/FileShare.app/assets/76259086/fbe4852c-a0e0-4acb-92a9-f1baba18ad14)
-
+![Alt text](image.png)
 - ### File Sharing Application offers a streamlined and secure platform for users to upload files of various formats.
 
 - ### With a user-friendly interface, individuals can effortlessly generate shareable links for their uploaded files, allowing recipients to access and download the content with ease.
