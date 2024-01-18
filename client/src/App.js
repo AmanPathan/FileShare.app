@@ -9,26 +9,35 @@ import copy_icon from './images/copy1.png';
 import check_icon from './images/check.png';
 import cross_icon from './images/cross.png';
 import upload_btn from './images/upload_btn.png';
-
+import { v4 as uuidv4 } from 'uuid';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
 const App = () => {
+
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  let currentDate = `${day}-${month}-${year}`;
+
   const navigate = useNavigate();
 
   const maxSizeAllowed = 100 * 1024 * 1024;
   const fileInputRef = useRef();
 
-  const [fileLink, setFileLink] = useState('');
+  const [file_path, setFile_Path] = useState('');
+  const [fileHash, storeHash] = useState('');
   const [uuid, setUUID] = useState('');
+  const [file_unique_name, setUniqueName] = useState('');
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [progress, setProgress] = useState(0);
 
+
   const [fileSize, setFileSize] = useState(0);
 
-  const [file, setFile] = useState();
-  const [result, setResult] = useState([]);
   const [filename, setFileName] = useState('');
   const [uploadStatus, setUploadStatus] = useState('none');
 
@@ -82,13 +91,21 @@ const App = () => {
       navigate(`/files/${uuid}`);
       return;
     }
-    // const BASE_URL = 'https://fileshare-app-8e4k.onrender.com';
     try {
       setUploadStatus('uploading');
       const formData = new FormData();
+      const uniqueName = `${currentDate}-${Math.round(Math.random() * 1E9)}-FileShare`;
       formData.append("file", selectedFile);
-      // console.log(formData); 8000
-      const response = await axios.post(`http://localhost:8000/api/files`, formData, {
+      formData.append('pinataOptions', '{"cidVersion": 0}');
+      formData.append('pinataMetadata', `{"name":"${uniqueName}"}`);
+      console.log(selectedFile);
+      const response = await axios({
+        method: "post",
+        url: `https://api.pinata.cloud/pinning/pinFileToIPFS`,
+        data: formData,
+        headers: {
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjZDU1NzI2Yy1mZDZjLTRjYTQtOTUzMi01NWU1YWFjYTEwMmUiLCJlbWFpbCI6InRoZWRldmVsb3BlcnJvbmluQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJmNTg5ZmM1MWViZGNjYmE1OWM4NiIsInNjb3BlZEtleVNlY3JldCI6Ijk5MjExY2JkYzFmMmVjNDk2Nzc0NTEzYzU1N2Q1YzExZjQ3ODY1MDJjYTVkZmYzYmMzN2I0MTM2MzdkZjNlMTgiLCJpYXQiOjE3MDU1MDc2NDB9.yo9zi7o01rU_lcW5_o7RzPNzwjtN_sd93PMjMdqfzEU`
+        },
         onUploadProgress: (progressEvent) => {
           const percentageCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
@@ -99,39 +116,36 @@ const App = () => {
             toast.success('File Uploaded Sucessfully');
           }
         }
+      });
+
+      const uuid = uuidv4();
+      setUUID(uuid);
+      setUniqueName(uniqueName);
+
+      const ImgHash = `${response.data.IpfsHash}`;
+      storeHash(ImgHash);
+
+      setFile_Path(`https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`);
+      console.log(`https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`);
+
+
+        let fileName = uniqueName;
+        let fileUUID = uuid;
+        let fileHash = ImgHash;
+        let fileLink = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+
+      const backRes = await axios.post('http://localhost:8000/api/files',{fileName,fileUUID,fileHash,fileLink,fileSize});
+      console.log(backRes.data.data);
+      if(backRes.data.data){
+        navigate(`/files/${uuid}`);
       }
-      );
-      console.log(response.data);
-      setFileLink(response.data.data);
-      setUUID(response.data.data.uuid);
-      toast(
-        "Wait for a While",
-        {
-          duration: 1000,
-        }
-      );
-      console.log(uuid);
     }
     catch (error) {
       setUploadStatus('none');
     }
   }
 
-  // const getUUID = async () => {
-  //   const res = await axios.get(fileLink)
-  //     .then(res => {
-  //       setUUID(res.data.uuid);
-  //     }).catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
-  // getUUID();
-  
-  if(uuid) {
-    setTimeout(() => {
-      navigate(`/files/${uuid}`);
-    }, 1000);
-  }
+  console.log("below navigate");
 
   return (
     <>

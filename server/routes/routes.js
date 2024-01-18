@@ -4,96 +4,61 @@ const path = require('path');
 const File = require('../models/validate.js');
 const { v4: uuid4 } = require('uuid');
 const { v2: cloudinary } = require('cloudinary');
+const axios = require('axios');
+const FormData = require('form-data');
+const fs = require('fs');
+require('dotenv').config();
 
-const BASE_URL = process.env.BASE_URL;
-const date = new Date();
-let day = date.getDate();
-let month = date.getMonth() + 1;
-let year = date.getFullYear();
-
-let currentDate = `${day}-${month}-${year}`;
-
-//multer configuration
-let storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, 'uploads/'),
-    filename: (req, file, cb) => {
-        const uniqueName = `${currentDate}-${Math.round(Math.random() * 1E9)}-FileShare${path.extname(file.originalname)}`;
-        cb(null, uniqueName);
+router.post("/", async (req, res) => {
+    try {
+        const {fileName,fileUUID,fileHash,fileLink,fileSize} = req.body;
+        if (!fileLink) {
+            return res.status(201).json({ error: "Upload a File First!" });
+        }
+        const file_data = new File({
+            filename:fileName,
+            path:fileLink,
+            uuid:fileUUID,
+            filehash:fileHash,
+            fileSize:fileSize,
+        });
+        const response = await file_data.save();
+        return res.json({data:file_data});
+    } catch (err) {
+        return res.json({ error: err.message });
     }
-});
-// let storage = multer.diskStorage({});
+})
 
-let upload = multer({
-    storage: storage,
-    limit: { fileSize: 100 * 1024 * 1024 }
-});
+// router.post('/', upload.single('file'), async (req, res) => {
 
-// router.post("/", upload.single('file'), async (req, res) => {
-//     try {
-//         if (!req.file) {
-//             return res.status(201).json({ error: "Upload a File First!" })
-//         }
-//         let uploadedFile;
-//         try {
-//             uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-//                 folder: "uploads",
-//                 resource_type: "auto",
-//             })
-//         } catch (error) {
-//             return res.json({ error: "Cloudinary Error!" });
-//         }
-//         const { originalname } = req.file;
-//         const { secure_url, bytes, format } = uploadedFile;
-//         const new_name = currentDate +"-"+ originalname;
-//         const file = new File({
-//             filename: new_name,
-//             path: secure_url,
-//             size: bytes,
-//             format: format,
-//         });
-//         const response = await file.save();
-//         // return res.status(200).json({
-//         //     id:response._id,
-//         //     downloadLink:`http://localhost:3000/files/download/${response._id}`,
-//         //     fileName:response.filename,
-//         //     fileSize:response.size,
-//         // });
-//         return res.send(response).json();
-//     } catch (err) {
-//         return res.json({ error: err.message });
+
+//     // Store  in Uploads Folder
+
+//     // Validate Request
+
+//     if (!req.file) {
+//         return res.status(201).json({ error: "Upload a File First!" })
 //     }
-// })
 
-router.post('/', upload.single('file'), async (req, res) => {
+//     // if (err) {
+//     //     return res.status(404).json({ error: err.message });
+//     // }
 
+//     // Store into Database
 
-    // Store  in Uploads Folder
+//     const file = new File({
+//         filename: req.file.filename,
+//         uuid: uuid4(),
+//         path: req.file.path,
+//         size: req.file.size
+//     });
 
-    // Validate Request
-
-    if (!req.file) {
-        return res.status(201).json({ error: "Upload a File First!" })
-    }
-
-    // if (err) {
-    //     return res.status(404).json({ error: err.message });
-    // }
-
-    // Store into Database
-
-    const file = new File({
-        filename: req.file.filename,
-        uuid: uuid4(),
-        path: req.file.path,
-        size: req.file.size
-    });
-
-    const response = await file.save();
-    // console.log(response);
-    // return res.json({ file: `http://localhost:3000/files/${response.uuid}` });
-    return res.json({data:response});
-    // Response -> Link 
-});
+//     const response = await file.save();
+//     // console.log(response);
+//     // return res.json({ file: `http://localhost:3000/files/${response.uuid}` });
+//     return res.json({data:response});
+//     // Response -> Link 
+// });
 
 
 

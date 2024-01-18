@@ -13,8 +13,9 @@ router.get('/:uuid',async (req,res)=>{
         return res.json({
             uuid:file.uuid,
             fileName:file.filename,
-            fileSize:file.size,
-            downloadLink:`http://localhost:8000/files/download/${file.uuid}`
+            downloadPath:file.path,
+            size:file.fileSize,
+            downloadLink:`http://localhost:3000/files/download/${file.uuid}`
         })
     }catch(err){
         return res.status(404).json({error:"Something Went Wrong!!"});

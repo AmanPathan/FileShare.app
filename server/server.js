@@ -35,10 +35,8 @@ app.get('*',(req,res)=>{
 //Routes
 app.use('/api/files',require('./routes/routes.js'));
 app.use('/files',require('./routes/show.js'));
-app.use('/files/download',require('./routes/download.js'));
+// app.use('/api/files/download',require('./routes/download.js'));
 
 app.listen(PORT,()=>{
     console.log(`Server is listening at PORT: ${PORT}`);
 })
-
-// https://fileshare-app-8e4k.onrender.com

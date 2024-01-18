@@ -25,17 +25,15 @@ const Show = () => {
     const [fileLink, setFileLink] = useState('');
     const [fileUUID, setFileID] = useState('');
     const [fileSize, setFileSize] = useState('');
-    const [fileFormat, setFileFormat] = useState('');
 
     const fetchUsers = async () => {
         axios.get(`http://localhost:8000/files/${uuid}`) //8000
             .then((res) => {
                 setFileData(res.data);
                 setFileName(res.data.fileName);
-                setFileSize(res.data.fileSize);
                 setFileLink(res.data.downloadLink);
-                // setFileFormat(res.data.format);
                 setFileID(res.data.uuid);
+                setFileSize(res.data.size);
             }).catch((err) => {
                 console.log("error fetching data", err);
             })
@@ -57,7 +55,7 @@ const Show = () => {
     var templateParams = {
         email_to: email_to,
         email_subject: email_subject,
-        email_link: `http://localhost:3000/files/download/${fileUUID}`, //8000
+        email_link: fileLink, //8000
     };
     const sendMail = () => {
 
@@ -73,7 +71,7 @@ const Show = () => {
             });
     }
 
-    const wts_link = `whatsapp://send?text=Download Your File Shared Using FileShare App : http://localhost:3000/files/download/${fileUUID}` //3000
+    const wts_link = `whatsapp://send?text=Download Your File Shared Using FileShare App : ${fileLink}` //3000
     const handleSubmit = () => {
         sendMail();
     }
@@ -102,12 +100,10 @@ const Show = () => {
                         <div className="link-box">
                             <div className='link_div'>
                                 <img src={download_icon1} className='copy_icon2' />
-                                <p className='link'>{`http://localhost:3000/files/download/${fileUUID}`}</p>
-                                {/* 3000  link*/}
-                                {/* 3000  copy*/}
+                                <p className='link'>{`${fileLink}`}</p>
                             </div>
                             <div className='share_btns'>
-                                <img src={copy_icon} onClick={() => { navigator.clipboard.writeText(`http://localhost:3000/files/download/${fileUUID}`); toast.success('Copied to Clipboard') }} className='copy_icon1' alt='copy link' />
+                                <img src={copy_icon} onClick={() => { navigator.clipboard.writeText(`${fileLink}`); toast.success('Copied to Clipboard') }} className='copy_icon1' alt='copy link' />
                                 <a href={wts_link} data-action="share/whatsapp/share">
                                     <img src={whatsapp_icon} className='copy_icon1' alt='copy link' />
                                 </a>

@@ -4,26 +4,24 @@ import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import download_icon from '../images/download.png';
 import download_icon1 from '../images/download1.png';
-import download from '../images/download.gif';
+import download1 from '../images/download.gif';
 import success_icon from '../images/success.png';
 import copy_icon from '../images/copy1.png';
 import doc_icon from '../images/doc.png';
 import img_404 from '../images/404.png';
 import goback_icon from '../images/goback.png';
-
 import { useNavigate } from 'react-router-dom';
-
 import fileDownload from 'js-file-download';
 
 const Download = () => {
     const navigate = useNavigate();
+
 
     const [errorFlag, setErrorFlag] = useState(false);
     const { uuid } = useParams();
     const [fileData, setFileData] = useState([]);
     const [fileName, setFileName] = useState('');
     const [fileLink, setFileLink] = useState('');
-    const [fileUUID, setFileID] = useState('');
     const [fileSize, setFileSize] = useState('');
     const [fileFormat, setFileFormat] = useState('');
 
@@ -32,26 +30,19 @@ const Download = () => {
             .then((res) => {
                 setFileData(res.data);
                 setFileName(res.data.fileName);
-                setFileSize(res.data.fileSize);
-                setFileLink(res.data.downloadLink);
-                setFileID(res.data.uuid);
+                setFileSize(res.data.size);
+                setFileLink(res.data.downloadPath);
             }).catch((err) => {
                 console.log("error fetching data", err);
             })
-        }
-        const handleGoback = () => {
-            navigate('/');
-        }
-        
-        useEffect(() => {
-            fetchUsers();
-        }, []);
-        // const handleDownload = async()=>{
-            //     const {data} = await axios.get(fileLink,{
-                //         responseType:'blob',
-                //     });
-                //     fileDownload(data,fileName);
-                // }
+    }
+    const handleGoback = () => {
+        navigate('/');
+    }
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
     return (
         <>
             <Toaster
@@ -63,7 +54,7 @@ const Download = () => {
                     <div className="container-center download_container">
                         <div className="show-container show-container1">
                             <div className='heading heading_download down_heading'>
-                                <img className="download-icon" src={download} />
+                                <img className="download-icon" src={download1} />
                                 <h2>Download Your File</h2>
                             </div>
                             <div className='file-box file-box1'>
@@ -78,7 +69,6 @@ const Download = () => {
                                 Download
                             </a>
                         </div>
-
                     </div>
                 </div> :
                 <div className="container">
@@ -94,6 +84,7 @@ const Download = () => {
                             </div>
                         </div>
                     </div>
+
                 </div>
             }
         </>
