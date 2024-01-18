@@ -29,38 +29,5 @@ router.post("/", async (req, res) => {
     }
 })
 
-// router.post('/', upload.single('file'), async (req, res) => {
-
-
-//     // Store  in Uploads Folder
-
-//     // Validate Request
-
-//     if (!req.file) {
-//         return res.status(201).json({ error: "Upload a File First!" })
-//     }
-
-//     // if (err) {
-//     //     return res.status(404).json({ error: err.message });
-//     // }
-
-//     // Store into Database
-
-//     const file = new File({
-//         filename: req.file.filename,
-//         uuid: uuid4(),
-//         path: req.file.path,
-//         size: req.file.size
-//     });
-
-//     const response = await file.save();
-//     // console.log(response);
-//     // return res.json({ file: `http://localhost:3000/files/${response.uuid}` });
-//     return res.json({data:response});
-//     // Response -> Link 
-// });
-
-
-
 
 module.exports = router;

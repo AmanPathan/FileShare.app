@@ -15,6 +15,8 @@ import axios from 'axios';
 
 const App = () => {
 
+
+  const PINATA_JWT = process.env.PINATA_JWT;
   const date = new Date();
   let day = date.getDate();
   let month = date.getMonth() + 1;
@@ -104,7 +106,7 @@ const App = () => {
         url: `https://api.pinata.cloud/pinning/pinFileToIPFS`,
         data: formData,
         headers: {
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjZDU1NzI2Yy1mZDZjLTRjYTQtOTUzMi01NWU1YWFjYTEwMmUiLCJlbWFpbCI6InRoZWRldmVsb3BlcnJvbmluQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJmNTg5ZmM1MWViZGNjYmE1OWM4NiIsInNjb3BlZEtleVNlY3JldCI6Ijk5MjExY2JkYzFmMmVjNDk2Nzc0NTEzYzU1N2Q1YzExZjQ3ODY1MDJjYTVkZmYzYmMzN2I0MTM2MzdkZjNlMTgiLCJpYXQiOjE3MDU1MDc2NDB9.yo9zi7o01rU_lcW5_o7RzPNzwjtN_sd93PMjMdqfzEU`
+          'Authorization': `Bearer ${PINATA_JWT}`
         },
         onUploadProgress: (progressEvent) => {
           const percentageCompleted = Math.round(

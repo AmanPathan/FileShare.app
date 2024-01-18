@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const File = require('../models/validate.js');
-const APP_BASE_URL = process.env.APP_BASE_URL;
+const BASE_URL = process.env.BASE_URL;
+require('dotenv').config();
 
 router.get('/:uuid',async (req,res)=>{
     try{
@@ -15,7 +16,7 @@ router.get('/:uuid',async (req,res)=>{
             fileName:file.filename,
             downloadPath:file.path,
             size:file.fileSize,
-            downloadLink:`http://localhost:3000/files/download/${file.uuid}`
+            downloadLink:`${BASE_URL}/files/download/${file.uuid}`
         })
     }catch(err){
         return res.status(404).json({error:"Something Went Wrong!!"});
